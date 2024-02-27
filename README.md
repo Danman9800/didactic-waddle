@@ -1,2 +1,2 @@
-# didactic-waddle
+# Didactic-Waddle
 Target Shooting Game

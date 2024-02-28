@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://bl15d31rcpav4"]
+
+[ext_resource type="Texture2D" uid="uid://b8rwj6lbxgmta" path="res://Sprites/HUD/crosshair_red_small.png" id="1_d7kwu"]
+[ext_resource type="Script" path="res://Entities/Player.gd" id="1_knggv"]
+[ext_resource type="Texture2D" uid="uid://cfb6ddvkdk4yc" path="res://Sprites/HUD/crosshair_outline_large.png" id="2_o1tpa"]
+[ext_resource type="Texture2D" uid="uid://d4ifqqgjry8bw" path="res://Sprites/Objects/rifle.png" id="3_rv1ha"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_77w0s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_o1tpa")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_d7kwu")
+}],
+"loop": false,
+"name": &"Shoot",
+"speed": 1.0
+}]
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_knggv")
+
+[node name="Crosshair" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.4, 1.4)
+sprite_frames = SubResource("SpriteFrames_77w0s")
+animation = &"Shoot"
+speed_scale = 0.5
+
+[node name="Rifle" type="Sprite2D" parent="."]
+position = Vector2(509, 698)
+texture = ExtResource("3_rv1ha")

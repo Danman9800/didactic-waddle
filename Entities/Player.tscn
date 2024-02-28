@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bl15d31rcpav4"]
+[gd_scene load_steps=7 format=3 uid="uid://bl15d31rcpav4"]
 
 [ext_resource type="Texture2D" uid="uid://b8rwj6lbxgmta" path="res://Sprites/HUD/crosshair_red_small.png" id="1_d7kwu"]
 [ext_resource type="Script" path="res://Entities/Player.gd" id="1_knggv"]
@@ -24,15 +24,26 @@ animations = [{
 "speed": 1.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_koat7"]
+radius = 20.0127
+
 [node name="Player" type="Node2D"]
 script = ExtResource("1_knggv")
 
 [node name="Crosshair" type="AnimatedSprite2D" parent="."]
+top_level = true
 scale = Vector2(1.4, 1.4)
 sprite_frames = SubResource("SpriteFrames_77w0s")
 animation = &"Shoot"
 speed_scale = 0.5
 
+[node name="HitZone" type="Area2D" parent="Crosshair"]
+
+[node name="Shape" type="CollisionShape2D" parent="Crosshair/HitZone"]
+shape = SubResource("CircleShape2D_koat7")
+
 [node name="Rifle" type="Sprite2D" parent="."]
+modulate = Color(1, 0.886275, 0.854902, 1)
+top_level = true
 position = Vector2(509, 698)
 texture = ExtResource("3_rv1ha")

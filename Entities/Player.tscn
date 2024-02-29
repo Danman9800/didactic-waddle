@@ -34,7 +34,7 @@ script = ExtResource("1_knggv")
 top_level = true
 scale = Vector2(1.4, 1.4)
 sprite_frames = SubResource("SpriteFrames_77w0s")
-animation = &"Shoot"
+animation = &"Idle"
 speed_scale = 0.5
 
 [node name="HitZone" type="Area2D" parent="Crosshair"]

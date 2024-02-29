@@ -1,22 +1,147 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4o2th47ekp0r"]
+[gd_scene load_steps=11 format=3 uid="uid://b4o2th47ekp0r"]
 
 [ext_resource type="PackedScene" uid="uid://bl15d31rcpav4" path="res://Entities/Player.tscn" id="1_jy6l6"]
 [ext_resource type="Texture2D" uid="uid://cpha2o4837iux" path="res://Sprites/Objects/target_red3_outline.png" id="2_5kln4"]
+[ext_resource type="Texture2D" uid="uid://d1hupwg14wjpx" path="res://Sprites/HUD/icon_duck.png" id="3_p6n7f"]
+[ext_resource type="Texture2D" uid="uid://dy11g2bmre7m4" path="res://Sprites/HUD/icon_bullet_empty_short.png" id="4_vbwr6"]
+[ext_resource type="Texture2D" uid="uid://b8q7v3vokcaet" path="res://Sprites/HUD/icon_bullet_gold_short.png" id="5_qeqqn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y02n5"]
 radius = 71.4493
 
+[sub_resource type="LabelSettings" id="LabelSettings_r7p0o"]
+font_size = 100
+font_color = Color(1, 0.976471, 1, 1)
+shadow_size = 25
+shadow_color = Color(0.854902, 0.505882, 0.129412, 0.952941)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qeno7"]
+font_size = 64
+font_color = Color(100, 100, 100, 1)
+outline_size = 18
+outline_color = Color(1, 0.513726, 0.2, 1)
+shadow_size = 25
+shadow_color = Color(0.156863, 0.0901961, 0.105882, 0.952941)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ito0p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_vbwr6")
+}],
+"loop": true,
+"name": &"Empty",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_qeqqn")
+}],
+"loop": true,
+"name": &"Full",
+"speed": 5.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qml81"]
+font_size = 32
+
 [node name="World" type="Node"]
+process_mode = 3
 
 [node name="Main World" type="Node2D" parent="."]
+process_mode = 1
 
-[node name="Area2D" type="Area2D" parent="Main World" groups=["targets"]]
+[node name="Temp(Remove while Production)" type="Area2D" parent="Main World" groups=["targets"]]
 position = Vector2(409, 260)
+scale = Vector2(0.6, 0.6)
 
-[node name="TargetRed3Outline" type="Sprite2D" parent="Main World/Area2D"]
+[node name="TargetRed3Outline" type="Sprite2D" parent="Main World/Temp(Remove while Production)"]
 texture = ExtResource("2_5kln4")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Main World/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Main World/Temp(Remove while Production)"]
 shape = SubResource("CircleShape2D_y02n5")
 
 [node name="Player" parent="Main World" instance=ExtResource("1_jy6l6")]
+
+[node name="Hud" type="Control" parent="."]
+process_mode = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TimeLeft" type="Label" parent="Hud"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -104.0
+offset_top = 16.0
+offset_right = 94.0
+offset_bottom = 176.0
+grow_horizontal = 2
+text = "120"
+label_settings = SubResource("LabelSettings_r7p0o")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Score" type="Label" parent="Hud"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.211
+anchor_bottom = 0.167
+offset_left = 80.0
+offset_top = 24.0
+offset_right = -15.064
+offset_bottom = -16.256
+scale = Vector2(0.746052, 0.753873)
+text = "14"
+label_settings = SubResource("LabelSettings_qeno7")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="IconDuck" type="Sprite2D" parent="Hud/Score"]
+position = Vector2(-35.75, 49.875)
+scale = Vector2(1.66176, 1.52273)
+texture = ExtResource("3_p6n7f")
+
+[node name="ShotsLeft" type="Control" parent="Hud"]
+layout_mode = 1
+anchor_left = 0.812
+anchor_top = 0.896
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 96.512
+offset_top = 15.8719
+offset_right = -56.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Shot-1" type="AnimatedSprite2D" parent="Hud/ShotsLeft"]
+sprite_frames = SubResource("SpriteFrames_ito0p")
+animation = &"Empty"
+
+[node name="Shot-2" type="AnimatedSprite2D" parent="Hud/ShotsLeft"]
+position = Vector2(-48, 0)
+sprite_frames = SubResource("SpriteFrames_ito0p")
+animation = &"Full"
+
+[node name="Shot-3" type="AnimatedSprite2D" parent="Hud/ShotsLeft"]
+position = Vector2(-96, 0)
+sprite_frames = SubResource("SpriteFrames_ito0p")
+animation = &"Full"
+
+[node name="Mags" type="Label" parent="Hud/ShotsLeft"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = 53.0
+text = "x5"
+label_settings = SubResource("LabelSettings_qml81")
+horizontal_alignment = 1
+vertical_alignment = 1
